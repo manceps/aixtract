@@ -1,0 +1,49 @@
+AIXtract
+Copyright 2026 Manceps, Inc.
+
+This product includes software adapted from the CAMEL-AI framework
+(https://github.com/camel-ai/camel)
+Copyright 2023-2026 @ CAMEL-AI.org. All Rights Reserved.
+Licensed under the Apache License, Version 2.0
+
+Adapted components from CAMEL-AI:
+
+  - Token counting utilities
+    Source: camel/utils/token_counting.py
+    Target: src/aixtract/utils/tokens.py
+
+  - Content chunking (CodeChunker)
+    Source: camel/utils/chunker/code_chunker.py
+    Target: src/aixtract/utils/chunking.py
+
+  - Filename sanitization
+    Source: camel/utils/filename.py
+    Target: src/aixtract/utils/filename.py
+
+  - Dependency validation (dependencies_required)
+    Source: camel/utils/commons.py
+    Target: src/aixtract/utils/deps.py
+
+  - Logging configuration
+    Source: camel/logger.py
+    Target: src/aixtract/utils/logging.py
+
+  - Batch processing patterns
+    Source: camel/loaders/markitdown.py
+    Target: src/aixtract/utils/parallel.py
+
+  - MarkItDown integration
+    Source: camel/loaders/markitdown.py
+    Target: src/aixtract/converters/_markitdown.py
+
+  - Excel extraction logic
+    Source: camel/toolkits/excel_toolkit.py
+    Target: src/aixtract/converters/xlsx.py
+
+  - Text/JSON parsing patterns
+    Source: camel/loaders/base_io.py
+    Target: src/aixtract/converters/text.py
+
+  - HTML parsing patterns
+    Source: camel/loaders/base_io.py
+    Target: src/aixtract/converters/html.py

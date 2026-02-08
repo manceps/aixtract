@@ -1,0 +1,173 @@
+[build-system]
+requires = ["hatchling>=1.26", "hatch-vcs>=0.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aixtract"
+dynamic = ["version"]
+description = "Enterprise-grade document extraction for LLM and NLP pipelines"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [
+    { name = "Al Kari" }
+]
+keywords = [
+    "document-extraction",
+    "text-extraction",
+    "pdf",
+    "ocr",
+    "nlp",
+    "llm",
+    "markdown",
+    "rag",
+    "document-processing",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pydantic>=2.0",
+    "python-magic>=0.4.27",
+    "httpx>=0.25.0",
+    "rich>=13.0",
+    "click>=8.1",
+    "markitdown>=0.1.1",
+]
+
+[project.optional-dependencies]
+pdf = [
+    "pypdf>=4.0",
+    "pdfplumber>=0.10",
+]
+docx = [
+    "python-docx>=1.1",
+]
+xlsx = [
+    "openpyxl>=3.1",
+]
+pptx = [
+    "python-pptx>=0.6.23",
+]
+html = [
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+]
+epub = [
+    "ebooklib>=0.18",
+]
+image = [
+    "pillow>=10.0",
+    "pytesseract>=0.3.10",
+]
+audio = [
+    "openai-whisper>=20231117",
+    "pydub>=0.25",
+]
+tokens = [
+    "tiktoken>=0.7.0",
+]
+all = [
+    "aixtract[pdf,docx,xlsx,pptx,html,epub,image,audio,tokens]",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+    "pytest-xdist>=3.5",
+    "mypy>=1.8",
+    "ruff>=0.2",
+    "pre-commit>=3.6",
+]
+
+[project.scripts]
+aixtract = "aixtract.cli.main:cli"
+
+[project.urls]
+Homepage = "https://github.com/manceps/aixtract"
+Repository = "https://github.com/manceps/aixtract"
+Issues = "https://github.com/manceps/aixtract/issues"
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.1.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/aixtract/_version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aixtract"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "UP",
+    "ARG",
+    "SIM",
+]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["aixtract"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_return_any = true
+warn_unused_ignores = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+    "-ra",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks integration tests",
+]
+
+[tool.coverage.run]
+source = ["src/aixtract"]
+branch = true
+omit = ["*/tests/*", "*/__main__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
